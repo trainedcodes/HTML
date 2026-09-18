@@ -1,10 +1,265 @@
-<HTML>
-<head><title>code it up</title></head>
-<body text=blue background='adv.jpeg'>
-<H1>Hey, Fellas!!!!</H1><br>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Keyflow is a playful typing speed test for students.">
+  <title>Keyflow — Find your flow</title>
+  <style>
+    :root {
+      --ink: #17213d;
+      --muted: #66708c;
+      --paper: #fffdf8;
+      --surface: #ffffff;
+      --line: #e8e6ef;
+      --purple: #6847e8;
+      --purple-dark: #5031c5;
+      --mint: #dff8e9;
+      --mint-strong: #4acb88;
+      --yellow: #ffe684;
+      --pink: #ff8db6;
+      --shadow: 0 18px 50px rgba(35, 25, 89, .10);
+    }
 
-Welcome to my new proget of code.
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 8%, #f6dbff 0 8rem, transparent 8.1rem),
+        radial-gradient(circle at 92% 14%, #d4f8f0 0 10rem, transparent 10.1rem),
+        var(--paper);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+    button, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible {
+      outline: 3px solid var(--pink);
+      outline-offset: 3px;
+    }
+    .shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 0 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; font-weight: 900; letter-spacing: -.04em; font-size: 1.35rem; }
+    .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; color: white; background: var(--purple); border-radius: 13px 13px 13px 4px; transform: rotate(-6deg); box-shadow: 4px 4px 0 var(--yellow); }
+    .nav { display: flex; align-items: center; gap: 22px; }
+    .nav a { color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 700; }
+    .nav a:hover { color: var(--purple); }
+    .pill { border: 0; border-radius: 99px; padding: 10px 16px; color: var(--purple-dark); background: var(--mint); font-weight: 800; }
+    .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 50px; align-items: center; padding: 58px 0 47px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--purple); font-size: .78rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 22px; height: 4px; background: var(--pink); border-radius: 99px; }
+    h1 { max-width: 600px; margin: 14px 0 18px; font-size: clamp(3rem, 7vw, 5.9rem); line-height: .96; letter-spacing: -.075em; }
+    h1 em { color: var(--purple); font-style: normal; }
+    .hero-copy { max-width: 535px; color: var(--muted); font-size: 1.08rem; }
+    .hero-actions { display: flex; align-items: center; gap: 18px; margin-top: 30px; }
+    .primary { border: 0; padding: 15px 22px; border-radius: 16px; color: white; background: var(--purple); box-shadow: 0 8px 0 var(--purple-dark); font-weight: 900; transition: transform .15s, box-shadow .15s; }
+    .primary:hover { transform: translateY(-2px); box-shadow: 0 10px 0 var(--purple-dark); }
+    .primary:active { transform: translateY(4px); box-shadow: 0 4px 0 var(--purple-dark); }
+    .secondary { color: var(--muted); text-decoration: none; font-weight: 800; }
+    .hero-art { position: relative; min-height: 290px; }
+    .blob { position: absolute; inset: 8px 18px 0 0; border-radius: 48% 52% 42% 58% / 55% 44% 56% 45%; background: var(--yellow); transform: rotate(8deg); }
+    .sticker { position: absolute; display: grid; place-items: center; width: 104px; height: 104px; border-radius: 50%; color: white; font-size: 2.5rem; background: var(--pink); transform: rotate(-14deg); box-shadow: 5px 5px 0 #e86092; }
+    .sticker.star { top: 12px; right: 12px; background: var(--purple); box-shadow: 5px 5px 0 var(--purple-dark); transform: rotate(12deg); }
+    .type-card { position: absolute; right: 13%; bottom: 15px; width: min(305px, 75%); padding: 21px; border: 3px solid var(--ink); border-radius: 20px; background: white; box-shadow: 8px 8px 0 var(--ink); transform: rotate(-4deg); }
+    .mini-label { color: var(--muted); font-size: .74rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .mini-keys { display: flex; gap: 7px; margin-top: 12px; }
+    .mini-key { display: grid; place-items: center; width: 38px; height: 38px; border: 2px solid var(--line); border-radius: 8px; color: var(--purple); background: #fbfaff; font-weight: 900; }
+    .mini-key.active { color: white; border-color: var(--purple); background: var(--purple); transform: translateY(-5px); }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; margin-bottom: 17px; }
+    h2 { margin: 0; font-size: 1.6rem; letter-spacing: -.04em; }
+    .section-heading p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .test-layout { display: grid; grid-template-columns: 1fr 286px; gap: 18px; }
+    .panel { border: 1px solid var(--line); border-radius: 24px; background: rgba(255,255,255,.88); box-shadow: var(--shadow); }
+    .test-panel { padding: 28px; }
+    .test-toolbar { display: flex; justify-content: space-between; align-items: center; padding-bottom: 21px; border-bottom: 1px solid var(--line); }
+    .mode-options { display: flex; gap: 6px; }
+    .mode { border: 0; padding: 8px 12px; border-radius: 10px; color: var(--muted); background: transparent; font-size: .82rem; font-weight: 900; }
+    .mode.selected { color: var(--purple); background: #eeeafd; }
+    .timer { color: var(--purple); font-variant-numeric: tabular-nums; font-size: 1.65rem; font-weight: 900; }
+    .progress-track { height: 8px; margin: 22px 0 25px; overflow: hidden; border-radius: 20px; background: #f0edf8; }
+    .progress-bar { width: 0%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--pink), var(--purple)); transition: width .2s; }
+    .prompt { min-height: 128px; margin: 0 0 20px; color: #9ca2b3; font-family: Georgia, serif; font-size: 1.31rem; line-height: 1.7; }
+    .prompt .current { color: var(--ink); border-bottom: 3px solid var(--pink); }
+    .prompt .correct { color: var(--mint-strong); }
+    .prompt .wrong { color: #ed547c; background: #ffe3ec; }
+    .typing-input { width: 100%; min-height: 94px; resize: vertical; padding: 14px 16px; border: 2px solid var(--line); border-radius: 14px; color: var(--ink); background: #fcfbff; line-height: 1.6; }
+    .typing-input:disabled { opacity: .7; cursor: not-allowed; }
+    .test-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 17px; }
+    .hint { color: var(--muted); font-size: .82rem; }
+    .reset { border: 0; color: var(--purple); background: transparent; font-weight: 900; }
+    .stat-panel { display: flex; flex-direction: column; gap: 19px; padding: 23px; }
+    .stat { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .stat:last-child { padding-bottom: 0; border-bottom: 0; }
+    .stat-value { display: block; margin-top: 2px; font-size: 2rem; font-weight: 900; letter-spacing: -.05em; }
+    .stat-name { color: var(--muted); font-size: .75rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .stat-note { color: var(--mint-strong); font-size: .76rem; font-weight: 800; }
+    .keyboard-wrap { margin: 27px 0 70px; }
+    .keyboard { display: grid; gap: 8px; padding: 18px; border-radius: 18px; background: #f2effd; }
+    .key-row { display: flex; justify-content: center; gap: 7px; }
+    .key { min-width: 35px; height: 35px; padding: 0 8px; border: 0; border-radius: 7px; color: var(--muted); background: white; box-shadow: 0 3px 0 #d6d0ed; font-size: .72rem; font-weight: 900; transition: .1s; }
+    .key.wide { min-width: 70px; } .key.space { min-width: 190px; }
+    .key.active { color: white; background: var(--purple); box-shadow: 0 1px 0 var(--purple-dark); transform: translateY(2px); }
+    .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding-bottom: 70px; }
+    .info-card { padding: 25px; }
+    .card-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 17px; }
+    .card-title span { color: var(--pink); font-size: 1.5rem; }
+    .leader-row { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 10px; padding: 11px 0; border-top: 1px solid var(--line); }
+    .rank { color: var(--muted); font-weight: 900; } .avatar { display: grid; place-items: center; width: 29px; height: 29px; border-radius: 50%; color: var(--purple-dark); background: var(--yellow); font-size: .74rem; font-weight: 900; }
+    .leader-name { font-size: .88rem; font-weight: 800; } .leader-score { color: var(--purple); font-weight: 900; }
+    .tip { color: var(--muted); font-size: .94rem; } .tip strong { color: var(--ink); }
+    footer { padding: 22px 0 35px; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; text-align: center; }
+    @media (max-width: 790px) {
+      .shell { width: min(100% - 28px, 600px); } .nav a { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 10px; padding-top: 35px; } .hero-art { min-height: 245px; }
+      .test-layout, .bottom-grid { grid-template-columns: 1fr; } .stat-panel { display: grid; grid-template-columns: repeat(3, 1fr); }
+      .stat { padding: 0 10px 0 0; border-bottom: 0; border-right: 1px solid var(--line); } .stat:last-child { border-right: 0; }
+      .stat-value { font-size: 1.6rem; } .test-panel { padding: 20px; } .keyboard-wrap { margin-bottom: 45px; }
+    }
+    @media (max-width: 430px) {
+      h1 { font-size: 3.35rem; } .hero-actions { align-items: flex-start; flex-direction: column; }
+      .test-toolbar { align-items: flex-start; flex-direction: column; gap: 12px; } .mode-options { flex-wrap: wrap; }
+      .prompt { font-size: 1.15rem; } .key { min-width: 25px; padding: 0 4px; font-size: .62rem; } .key.wide { min-width: 45px; } .key.space { min-width: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell topbar">
+    <a class="brand" href="#" aria-label="Keyflow home"><span class="brand-mark">⌁</span> keyflow</a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#leaderboard">Leaderboard</a><a href="#tips">Tips</a><button class="pill" id="focusButton">Start typing</button>
+    </nav>
+  </header>
 
-<A href="keyboard.html" Alink="red">click to get the message</A>
+  <main class="shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <span class="eyebrow">Your study break, upgraded</span>
+        <h1 id="hero-title">Find your <em>flow.</em><br>One key at a time.</h1>
+        <p class="hero-copy">A friendly typing sprint for busy brains. Warm up your fingers, chase a new personal best, and make homework feel a little more like a game.</p>
+        <div class="hero-actions"><button class="primary" id="heroStart">Take the 60-second test <span aria-hidden="true">→</span></button><a class="secondary" href="#tips">How it works ↓</a></div>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="blob"></div><div class="sticker">✦</div><div class="sticker star">⌨</div><div class="type-card"><span class="mini-label">Today's energy</span><div class="mini-keys"><span class="mini-key">A</span><span class="mini-key active">S</span><span class="mini-key">D</span><span class="mini-key">F</span><span class="mini-key">J</span></div><strong>Small steps, big speed.</strong></div></div>
+    </section>
+
+    <section id="test" aria-labelledby="test-title">
+      <div class="section-heading"><div><span class="eyebrow">Ready when you are</span><h2 id="test-title">Typing dojo</h2></div><p id="statusText">Click the box to begin your sprint.</p></div>
+      <div class="test-layout">
+        <div class="panel test-panel">
+          <div class="test-toolbar"><div class="mode-options" aria-label="Test duration"><button class="mode selected" data-duration="60">60 sec</button><button class="mode" data-duration="30">30 sec</button><button class="mode" data-duration="15">15 sec</button></div><div class="timer" id="timer" aria-live="polite">01:00</div></div>
+          <div class="progress-track" aria-label="Typing progress"><div class="progress-bar" id="progress"></div></div>
+          <p class="prompt" id="prompt" aria-label="Text to type"></p>
+          <textarea class="typing-input" id="typingInput" placeholder="Start typing here — you've got this!" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="Type the text shown above"></textarea>
+          <div class="test-footer"><span class="hint">Tip: accuracy first, speed follows ✨</span><button class="reset" id="resetButton">↻ Reset test</button></div>
+        </div>
+        <aside class="panel stat-panel" aria-label="Your live stats">
+          <div class="stat"><span class="stat-name">Speed</span><strong class="stat-value" id="wpm">0</strong><span class="stat-note">words / min</span></div>
+          <div class="stat"><span class="stat-name">Accuracy</span><strong class="stat-value" id="accuracy">100%</strong><span class="stat-note">keep it clean</span></div>
+          <div class="stat"><span class="stat-name">Characters</span><strong class="stat-value" id="characters">0</strong><span class="stat-note">typed so far</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="keyboard-wrap" aria-label="Keyboard visualizer">
+      <div class="section-heading"><div><span class="eyebrow">Feel the rhythm</span><h2>Finger fireworks</h2></div><p>Keys light up as you type</p></div>
+      <div class="keyboard" id="keyboard">
+        <div class="key-row"><button class="key" data-key="q">Q</button><button class="key" data-key="w">W</button><button class="key" data-key="e">E</button><button class="key" data-key="r">R</button><button class="key" data-key="t">T</button><button class="key" data-key="y">Y</button><button class="key" data-key="u">U</button><button class="key" data-key="i">I</button><button class="key" data-key="o">O</button><button class="key" data-key="p">P</button></div>
+        <div class="key-row"><button class="key" data-key="a">A</button><button class="key" data-key="s">S</button><button class="key" data-key="d">D</button><button class="key" data-key="f">F</button><button class="key" data-key="g">G</button><button class="key" data-key="h">H</button><button class="key" data-key="j">J</button><button class="key" data-key="k">K</button><button class="key" data-key="l">L</button></div>
+        <div class="key-row"><button class="key wide" data-key="shift">SHIFT</button><button class="key" data-key="z">Z</button><button class="key" data-key="x">X</button><button class="key" data-key="c">C</button><button class="key" data-key="v">V</button><button class="key" data-key="b">B</button><button class="key" data-key="n">N</button><button class="key" data-key="m">M</button><button class="key wide" data-key="backspace">⌫</button></div>
+        <div class="key-row"><button class="key space" data-key=" ">SPACE</button></div>
+      </div>
+    </section>
+
+    <section class="bottom-grid">
+      <div class="panel info-card" id="leaderboard"><div class="card-title"><h2>Campus leaderboard</h2><span>🏆</span></div><div class="leader-row"><span class="rank">01</span><span class="avatar">AM</span><span class="leader-name">Ari M.</span><strong class="leader-score">92 WPM</strong></div><div class="leader-row"><span class="rank">02</span><span class="avatar" style="background:#dff8e9">JK</span><span class="leader-name">Jay K.</span><strong class="leader-score">87 WPM</strong></div><div class="leader-row"><span class="rank">03</span><span class="avatar" style="background:#f2d9ff">SR</span><span class="leader-name">Sam R.</span><strong class="leader-score">81 WPM</strong></div></div>
+      <div class="panel info-card" id="tips"><div class="card-title"><h2>One tiny tip</h2><span>💡</span></div><p class="tip"><strong>Look at the words, not your hands.</strong> Your fingers remember more than you think. Keep your shoulders loose, breathe out, and let the rhythm do the work.</p><button class="pill" id="newTip">Give me another tip</button></div>
+    </section>
+  </main>
+  <footer>Made for curious minds, fast notes, and every “I can do this” moment. ♡</footer>
+
+  <script>
+    const passages = [
+      "Small steps every day turn into big changes over time. Keep your curiosity close and let your ideas take up space.",
+      "The best study session is the one that starts. Take a breath, pick one tiny task, and let your focus build momentum.",
+      "Your keyboard is an instrument for ideas. Find a steady rhythm, make a little room for mistakes, and keep going.",
+      "A new skill is just a collection of tiny tries. Celebrate the progress between the first attempt and the next one."
+    ];
+    const tips = [
+      "<strong>Give your eyes a rest.</strong> Every 20 minutes, look at something 20 feet away for 20 seconds. Your future self says thanks.",
+      "<strong>Use your thumbs for space.</strong> It keeps your hands balanced and makes the next word feel ready to go.",
+      "<strong>Reset your posture.</strong> Drop your shoulders, soften your wrists, and let your elbows rest close to your sides."
+    ];
+    const input = document.getElementById("typingInput");
+    const prompt = document.getElementById("prompt");
+    const timer = document.getElementById("timer");
+    const progress = document.getElementById("progress");
+    const statusText = document.getElementById("statusText");
+    let duration = 60, timeLeft = duration, startedAt = 0, interval = null, finished = false;
+    let target = passages[0], tipIndex = 0;
+
+    function formatTime(seconds) { return `00:${String(seconds).padStart(2, "0")}`; }
+    function renderPrompt() {
+      prompt.innerHTML = "";
+      [...target].forEach((char, index) => {
+        const span = document.createElement("span");
+        span.textContent = char;
+        span.dataset.index = index;
+        prompt.appendChild(span);
+      });
+      updatePrompt();
+    }
+    function updatePrompt() {
+      const typed = input.value;
+      [...prompt.children].forEach((span, index) => {
+        span.className = index < typed.length ? (typed[index] === target[index] ? "correct" : "wrong") : index === typed.length ? "current" : "";
+      });
+      progress.style.width = `${Math.min(100, (typed.length / target.length) * 100)}%`;
+    }
+    function updateStats() {
+      const typed = input.value;
+      const correct = [...typed].filter((char, index) => char === target[index]).length;
+      const elapsed = startedAt ? Math.max(1, (Date.now() - startedAt) / 60000) : 0;
+      document.getElementById("characters").textContent = typed.length;
+      document.getElementById("accuracy").textContent = `${typed.length ? Math.round((correct / typed.length) * 100) : 100}%`;
+      document.getElementById("wpm").textContent = elapsed ? Math.round((correct / 5) / elapsed) : 0;
+    }
+    function finish() {
+      clearInterval(interval); interval = null; finished = true; input.disabled = true;
+      statusText.textContent = "Sprint complete — nice work!";
+      input.blur();
+    }
+    function startTimer() {
+      if (startedAt || finished) return;
+      startedAt = Date.now();
+      statusText.textContent = "In the zone — keep going!";
+      interval = setInterval(() => {
+        timeLeft -= 1; timer.textContent = formatTime(timeLeft); updateStats();
+        if (timeLeft <= 0) finish();
+      }, 1000);
+    }
+    function reset() {
+      clearInterval(interval); interval = null; duration = Number(document.querySelector(".mode.selected").dataset.duration);
+      timeLeft = duration; startedAt = 0; finished = false; target = passages[Math.floor(Math.random() * passages.length)];
+      timer.textContent = formatTime(timeLeft); input.disabled = false; input.value = ""; statusText.textContent = "Click the box to begin your sprint.";
+      document.getElementById("wpm").textContent = "0"; document.getElementById("accuracy").textContent = "100%"; document.getElementById("characters").textContent = "0"; progress.style.width = "0%"; renderPrompt();
+    }
+    input.addEventListener("input", () => { startTimer(); updatePrompt(); updateStats(); });
+    input.addEventListener("keydown", event => {
+      const key = event.key.toLowerCase();
+      const visual = document.querySelector(`[data-key="${key === " " ? " " : key}"]`);
+      if (visual) { visual.classList.add("active"); setTimeout(() => visual.classList.remove("active"), 130); }
+      if (input.value.length >= target.length && event.key !== "Backspace") finish();
+    });
+    document.getElementById("resetButton").addEventListener("click", reset);
+    document.querySelectorAll(".mode").forEach(button => button.addEventListener("click", () => { document.querySelector(".mode.selected").classList.remove("selected"); button.classList.add("selected"); reset(); }));
+    document.getElementById("heroStart").addEventListener("click", () => { document.getElementById("test").scrollIntoView({ behavior: "smooth" }); setTimeout(() => input.focus(), 450); });
+    document.getElementById("focusButton").addEventListener("click", () => { document.getElementById("test").scrollIntoView({ behavior: "smooth" }); setTimeout(() => input.focus(), 450); });
+    document.getElementById("newTip").addEventListener("click", event => { tipIndex = (tipIndex + 1) % tips.length; event.target.previousElementSibling.innerHTML = tips[tipIndex]; });
+    renderPrompt();
+  </script>
 </body>
-</HTML>
+</html>
